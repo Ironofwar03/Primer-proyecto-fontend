@@ -51,7 +51,7 @@ body
     margin-bottom: 4px;
 }
 .output{
-    background-color: var(--text-input-field);
+    background-color: var(--very-light-pink);
     border: none;
     border-radius: 8px;
     height: 30px;
