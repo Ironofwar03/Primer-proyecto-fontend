@@ -3,7 +3,7 @@ const desktopMenu = document.querySelector('.desktop-menu')
 const menuHamIcon = document.querySelector('.menu')
 const mobileMenu = document.querySelector('.mobile-menu')
 const menuShoppingCart = document.querySelector('.navbar-shopping-cart')
-const aside = document.querySelector('.product-detail')
+const shoppingCartContainer = document.getElementById('shoppingCartContainer')
 const cardsContainer = document.querySelector('.cards-container')
 
 
@@ -12,20 +12,20 @@ menuHamIcon.addEventListener('click', toggleMobileMenu)
 menuShoppingCart.addEventListener('click', toggleShoppingMenu)
 
 function toggleDesktopMenu(){
-    const isAsideClose = aside.classList.contains('inactive')
+    const isAsideClose = shoppingCartContainer.classList.contains('inactive')
 
     if(!isAsideClose){
-        aside.classList.add('inactive')
+        shoppingCartContainer.classList.add('inactive')
     }
     
     desktopMenu.classList.toggle('inactive');
 }
 
 function toggleMobileMenu(){
-    const isAsideClose = aside.classList.contains('inactive')
+    const isAsideClose = shoppingCartContainer.classList.contains('inactive')
 
     if(!isAsideClose){
-        aside.classList.add('inactive')
+        shoppingCartContainer.classList.add('inactive')
     }
     
     mobileMenu.classList.toggle('inactive');
@@ -43,7 +43,7 @@ function toggleShoppingMenu(){
         desktopMenu.classList.add('inactive')
     }
     
-    aside.classList.toggle('inactive');
+    shoppingCartContainer.classList.toggle('inactive');
 }
 
 const productList = [];
@@ -63,6 +63,7 @@ productList.push({
     img: './icons/bike.jpg'
 })
 
+
 /* <div class="product-card">
         <img src="./icons/bike.jpg" alt="" class="product-img">
         <div class="product-info">
@@ -76,7 +77,7 @@ productList.push({
             </figure>
         </div>
     </div> */
-
+    
 for (product of productList){ // if we use for(x in y), x will be the index in the array not the object or variable  
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
@@ -90,9 +91,9 @@ for (product of productList){ // if we use for(x in y), x will be the index in t
     const productInfoDiv = document.createElement('div')
 
     const productPrice = document.createElement('p')
-    productPrice.innerText = '$' +  product.price
+    productPrice.innerText = '$' + product.price
     const productName = document.createElement('p')
-    productPrice.innerText = product.name
+    productName.innerText = product.name
 
     productInfoDiv.appendChild(productPrice)
     productInfoDiv.appendChild(productName)
