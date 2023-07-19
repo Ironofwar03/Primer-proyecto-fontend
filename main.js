@@ -5,62 +5,62 @@ const mobileMenu = document.querySelector('.mobile-menu')
 const menuShoppingCart = document.querySelector('.navbar-shopping-cart')
 const shoppingCartContainer = document.getElementById('shoppingCartContainer')
 const cardsContainer = document.querySelector('.cards-container')
+const asideProductDetail = document.querySelector('#productDetail')
+const closeAsideDetails = document.querySelector('.product-detail-close')
 
 
 menuEmail.addEventListener('click', toggleDesktopMenu)
 menuHamIcon.addEventListener('click', toggleMobileMenu)
 menuShoppingCart.addEventListener('click', toggleShoppingMenu)
+closeAsideDetails.addEventListener('click', closeProductDetail)
+
 
 function toggleDesktopMenu(){
-    const isAsideClose = shoppingCartContainer.classList.contains('inactive')
-
-    if(!isAsideClose){
-        shoppingCartContainer.classList.add('inactive')
-    }
-    
+    shoppingCartContainer.classList.add('inactive')
+    asideProductDetail.classList.add('inactive')
     desktopMenu.classList.toggle('inactive');
 }
 
 function toggleMobileMenu(){
-    const isAsideClose = shoppingCartContainer.classList.contains('inactive')
-
-    if(!isAsideClose){
-        shoppingCartContainer.classList.add('inactive')
-    }
-    
+    shoppingCartContainer.classList.add('inactive')
+    asideProductDetail.classList.add('inactive')
     mobileMenu.classList.toggle('inactive');
 }
 
 function toggleShoppingMenu(){
-    const isMobileMenuClose = mobileMenu.classList.contains('inactive')
-    const isDesktopMenuClose = desktopMenu.classList.contains('inactive')
-
-    if(!isMobileMenuClose){
-        mobileMenu.classList.add('inactive')
-    }
-
-    if(!isDesktopMenuClose){
-        desktopMenu.classList.add('inactive')
-    }
-    
+    desktopMenu.classList.add('inactive')
+    mobileMenu.classList.add('inactive')
+    asideProductDetail.classList.add('inactive')
     shoppingCartContainer.classList.toggle('inactive');
+}
+
+function openProductDetail(){
+    asideProductDetail.classList.remove('inactive')
+    shoppingCartContainer.classList.add('inactive')
+}
+
+function closeProductDetail(){
+    asideProductDetail.classList.add('inactive')
 }
 
 const productList = [];
 productList.push({
-    name: 'bike',
+    name: 'Bike',
     price: 120,
-    img: './icons/bike.jpg'
+    img: './icons/bike.jpg',
+    des: 'its functional and practical design'
 })
 productList.push({
-    name: 'bike',
-    price: 120,
-    img: './icons/bike.jpg'
+    name: 'PC',
+    price: 2200,
+    img: './icons/PC.png',
+    des: 'its functional and practical design'
 })
 productList.push({
-    name: 'bike',
-    price: 120,
-    img: './icons/bike.jpg'
+    name: 'TV',
+    price: 700,
+    img: './icons/TV.png',
+    des: 'its functional and practical design'
 })
 
 
@@ -84,6 +84,7 @@ for (product of productList){ // if we use for(x in y), x will be the index in t
 
     const productImg = document.createElement('img');
     productImg.setAttribute('src', product.img)
+    productImg.addEventListener('click',openProductDetail)
 
     const productInfo = document.createElement('div');
     productInfo.classList.add('product-info');
@@ -111,4 +112,56 @@ for (product of productList){ // if we use for(x in y), x will be the index in t
     productCard.appendChild(productInfo);
 
     cardsContainer.appendChild(productCard)
+}
+{/* <img src="./icons/bike.jpg" alt="bike">
+    <div class="product-info">
+        <p>$35,00</p>
+        <p>Bike</p>
+        <p>With its functional and practical design, 
+            this bike also fulfills a decorative function, 
+            adding personality and a retro-vintage aesthetic 
+            to your house.
+        </p>
+        <button class="primary-button add-to-cart">
+            <img src="./icons/bt_add_to_cart.svg" alt="add to cart">
+                Add to cart
+        </button> 
+    </div>  */}
+for(detail of productList){
+    const detailImg = document.createElement('img')
+    detailImg.setAttribute('src', detail.img)
+
+    const detailInfo = document.createElement('div')
+    detailInfo.classList.add('product-info')
+    detailInfo.classList.add(detail.name)
+
+    const productDetailPrice = document.createElement('p')
+    productDetailPrice.innerText = '$' + detail.price
+
+    const productDetailName = document.createElement('p')
+    productDetailName.innerText = detail.name
+
+    const productDetail = document.createElement('p')
+    productDetail.innerText = detail.des
+
+    detailInfo.appendChild(productDetailPrice)
+    detailInfo.appendChild(productDetailName)
+    detailInfo.appendChild(productDetail)
+
+    const addCartBtn = document.createElement('button')
+    addCartBtn.classList.add('primary-button')
+    addCartBtn.classList.add('add-to-cart')
+
+    const cartImg = document.createElement('img')
+    cartImg.setAttribute('src', './icons/bt_add_to_cart.svg')
+    const cartText = document.createElement('p')
+    cartText.innerText = 'Add to cart'
+
+    addCartBtn.appendChild(cartImg)
+    addCartBtn.appendChild(cartText)
+
+    detailInfo.appendChild(addCartBtn)
+
+    asideProductDetail.appendChild(detailImg)
+    asideProductDetail.appendChild(detailInfo)
 }
